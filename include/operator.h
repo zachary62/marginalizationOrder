@@ -22,6 +22,7 @@ public:
     Operator();
     ~Operator();
     Relation* marginalize(Relation* R, unordered_set<string> attrs);
+    Relation* join(vector<Relation*> relations);
 
 };
 

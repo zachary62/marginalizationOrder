@@ -51,6 +51,8 @@ Relation::Relation(string dir)
     relation = new vector<row*>;
 
     while(getline(input, line)){
+        if (line[0] == COMMENT_CHAR || line == "")
+                continue;
         ssLine << line;
         row* r = new row;
         r->attr = new vector<string*>;

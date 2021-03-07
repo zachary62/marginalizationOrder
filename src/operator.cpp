@@ -5,8 +5,6 @@
 #include <unordered_set>
 #include <iostream>
 
-
-
 static const char COMMENT_CHAR = '#';
 static const char PARAMETER_SEPARATOR_CHAR = ',';
 
@@ -25,11 +23,18 @@ Operator::~Operator()
 
 // helper function to marginalize
 // given the node, build the row, and add the row to relation
-void nodeToRelation(vector<row*>* relation, vector<string*> curRow, hNode* curNode){
+void nodeToRelation(vector<row*>* relation, vector<string> curRow, hNode* curNode){
     // base case
     if(curNode->value != 0){
         row* r = new row;
-        r->attr = new vector<string*>(curRow);
+
+        // translate vector of string to vector of string*
+        vector<string*> attr_values;
+        for(string s: curRow){
+            attr_values.push_back(new string(s));
+        }
+        r->attr = new vector<string*>(attr_values);
+
         r->value = curNode->value;
         relation->push_back(r);
 
@@ -43,8 +48,8 @@ void nodeToRelation(vector<row*>* relation, vector<string*> curRow, hNode* curNo
     for (it = curNode->children.begin(); it != curNode->children.end(); it++)
     {
         // copy a new vector (as the old one will be used for next value)
-        vector<string*> next = curRow;
-        string * att = new string(it->first);
+        vector<string> next = curRow;
+        string att = it->first;
         next.push_back(att);
         nodeToRelation(relation, next, it->second);
         
@@ -112,7 +117,7 @@ Relation* Operator::marginalize(Relation* input, unordered_set<string> attrs)
         // cout << "value: " << cur->value <<"\n";
     }
     
-    vector<string*> empty;
+    vector<string> empty;
     // build relation from the built multi-level map
     nodeToRelation(output->relation, empty, root);
 
@@ -120,3 +125,222 @@ Relation* Operator::marginalize(Relation* input, unordered_set<string> attrs)
 
 }
 
+// get index of attributes in the schema
+// return -1 if not existed
+int getAttIdx(vector<string*>* schema, string att){
+    for(unsigned int i = 0; i < schema->size(); i++){
+        if(*schema->at(i) == att){
+            return i;
+        }
+    }
+    return -1;
+}
+
+hNode* buildHashNode(Relation* input, vector<int> idx){
+    // build multi level hash map
+    hNode* root = new hNode();
+    // for each row in the input relaiton
+    for(row* r: *input->relation){
+        // start with root node
+        hNode* cur = root;
+
+        // for each attribute value in this row
+        for(int i: idx){
+
+            // get the current attribute value
+            string cur_attr = *r->attr->at(i);
+
+            // check if previous node has been built
+            if(cur->children.find(cur_attr) == cur->children.end()){
+                // if not, add the hash node
+                // cout << "not found" <<"\n";
+                cur->children[cur_attr] = new hNode();
+            }
+
+            // move to the child node
+            cur = cur->children[cur_attr];
+        }
+
+        // after iterating over all attribute values, cur points to the leaf node
+        // calculate value for leaf node
+        cur->value += r->value;
+        // cout << "value: " << cur->value <<"\n";
+    }
+    return root;
+}
+
+
+// given the nodes, build the row, and add the row to relation
+void nodesJoinToRelation(vector<row*>* output, vector<string> curRow, vector<hNode*> curNodes, vector<int> levels, 
+                        int curAttId, int maxAttId, vector<string> ordered_attributes, vector<vector<string>> attrs){
+
+    // base case
+    if(curAttId >= maxAttId){
+        row* r = new row;
+        // translate vector of string to vector of string*
+        vector<string*> attr_values;
+        for(string s: curRow){
+            attr_values.push_back(new string(s));
+        }
+        r->attr = new vector<string*>(attr_values);
+
+
+        int value = 1;
+        for(hNode* curNode: curNodes){
+            value = value * curNode->value;
+        }
+        r->value = value;
+        output->push_back(r);
+        return;
+    }
+
+    // current attributes to join
+    string curAtt = ordered_attributes[curAttId];
+
+    // find the relation which contains this attribute, and has the smallest size
+    bool first = true;
+    hNode* node;
+    unsigned int size;
+
+    for(unsigned int i = 0; i < curNodes.size(); i++){
+        // if not this attribute, skip to next
+        if(attrs[i][levels[i]] != curAtt){
+            continue;
+        }
+        
+        // check if this nodes is smaller
+        hNode* curNode = curNodes[i];
+        if(first || (curNode->children.size() < size)){
+            first = false;
+            size = curNode->children.size();
+            node = curNode;
+        }
+
+    }
+
+
+    // iterate through all the attribute value
+    unordered_map<string,hNode*>::iterator it;
+    for (it = node->children.begin(); it != node->children.end(); it++)
+    {
+        string attrValue = it->first;
+
+        // for all relations with this attribute, check if they all contain this attribute value
+        bool equal = true;
+
+        for(unsigned int i = 0; i < curNodes.size(); i++){
+            // if not this attribute, skip to next
+            if(attrs[i][levels[i]] != curAtt){
+                continue;
+            }
+
+            // check if contains this attribute
+            hNode* curNode = curNodes[i];
+
+            if(curNode->children.find(attrValue) == curNode->children.end()){
+                equal = false;
+                break;
+            }
+        }
+
+        // don't satisfy the join condition
+        // go to the next att
+        if(!equal){
+            continue;
+        }
+
+        // otherwise, go to the next attribute
+        // copy a new vector (as the old one will be used for next value)
+        vector<string> nextRow = curRow;
+        nextRow.push_back(it->first);
+
+        // for relation with this attribute, node goes to next level (update level and nodes)
+        vector<hNode*> nextNode = curNodes;
+        vector<int> nextlevels = levels;
+
+        for(unsigned int i = 0; i < curNodes.size(); i++){
+            // if not this attribute, skip to next
+            if(attrs[i][levels[i]] != curAtt){
+                continue;
+            }
+
+            nextlevels[i] = nextlevels[i] + 1;
+            nextNode[i] = nextNode[i]->children[attrValue];
+        }
+
+        nodesJoinToRelation(output, nextRow, nextNode,nextlevels, curAttId + 1, maxAttId, ordered_attributes, attrs);
+        
+    }
+
+}
+
+Relation* Operator::join(vector<Relation*> relations){
+    Relation* output = new Relation();
+    unordered_set<string> attributes;
+
+    // define a global attribute order for join
+    for(Relation* relation: relations){
+        for(string* att: *relation->schema){
+            attributes.insert(*att);
+        }
+    }
+
+    vector<string> ordered_attributes;
+    unordered_set<string>::iterator it;
+    for (it = attributes.begin(); it != attributes.end(); it++){
+        // cout<< *it << "\n";
+        ordered_attributes.push_back(*it);
+
+        string * att = new string(*it);
+        // add not marginalized attrs to new relation
+        output->schema->push_back(att);
+    }
+    
+    // build hash index for each relation
+
+    // root hash node for each relation
+    vector<hNode*> nodes;
+    // for each relation, ordered attrs (wrt global order) and their indics
+    vector<vector<string>> attrs;
+    vector<vector<int>> attrsIdx;
+    // for each relation, current level (used for join later)
+    vector<int> levels;
+    
+    for(Relation* relation: relations){
+        // attribute and indices for this relation
+        vector<string> attr;
+        vector<int> idx;
+
+        for(string curAtt: ordered_attributes){
+            int curIdx = getAttIdx(relation->schema, curAtt);
+            if(curIdx != -1){
+                attr.push_back(curAtt);
+                idx.push_back(curIdx);
+            }
+        }
+
+        // for debug only
+        // for(string s: attr){
+        //     cout<< s << " ";
+        // }
+        // cout<< "\n";
+
+        // for(int s: idx){
+        //     cout<< s << " ";
+        // }
+        // cout<< "\n";
+
+        attrs.push_back(attr);
+        attrsIdx.push_back(idx);
+
+        hNode* root = buildHashNode(relation,idx);
+        nodes.push_back(root);
+        levels.push_back(0);
+    }
+    
+    vector<string> empty;
+    nodesJoinToRelation(output->relation, empty, nodes, levels, 0, (int )ordered_attributes.size(), ordered_attributes, attrs);
+
+    return output;
+
+}
