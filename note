@@ -1,6 +1,0 @@
-make
-./ftree
-
-marg data/marg/R.csv
-
-check
