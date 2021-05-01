@@ -1,4 +1,6 @@
 make
 ./ftree
 
-marg data/small/
+marg data/marg/R.csv
+
+check
