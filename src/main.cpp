@@ -36,7 +36,7 @@ void test_marginalization(string directory){
 
     duration = (clock() - start) / (double)CLOCKS_PER_SEC;
     cout << "time to marginalization: " << duration << "\n"; 
-    R2->print();
+    // R2->print();
 }
 
 void join_example(){
@@ -66,7 +66,8 @@ int main(int argc, char *argv[])
     
     string directory(argv[1]);
     test_marginalization(directory);
-    join_example();
+    // join_example();
+    // cout<<CLOCKS_PER_SEC;
 
 }
 

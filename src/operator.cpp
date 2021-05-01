@@ -39,7 +39,7 @@ void nodeToRelation(vector<row*>* relation, vector<string> curRow, hNode* curNod
         relation->push_back(r);
 
         // the node is no longer used
-        delete &curNode;
+        delete curNode;
         return;
     }
 
@@ -55,7 +55,7 @@ void nodeToRelation(vector<row*>* relation, vector<string> curRow, hNode* curNod
         
     }
     // the node is no longer used
-    delete &curNode;
+    delete curNode;
 }
 
 
@@ -215,11 +215,10 @@ void nodesJoinToRelation(vector<row*>* output, vector<string> curRow, vector<hNo
             size = curNode->children.size();
             node = curNode;
         }
-
     }
 
 
-    // iterate through all the attribute value
+    // iterate through all the attribute value in the smallest relation
     unordered_map<string,hNode*>::iterator it;
     for (it = node->children.begin(); it != node->children.end(); it++)
     {
@@ -236,20 +235,20 @@ void nodesJoinToRelation(vector<row*>* output, vector<string> curRow, vector<hNo
 
             // check if contains this attribute
             hNode* curNode = curNodes[i];
-
             if(curNode->children.find(attrValue) == curNode->children.end()){
+                // if not contain, stop the loop
                 equal = false;
                 break;
             }
         }
 
         // don't satisfy the join condition
-        // go to the next att
+        // go to the next attribute value
         if(!equal){
             continue;
         }
 
-        // otherwise, go to the next attribute
+        // otherwise, go to the deeper attribute
         // copy a new vector (as the old one will be used for next value)
         vector<string> nextRow = curRow;
         nextRow.push_back(it->first);
@@ -274,17 +273,40 @@ void nodesJoinToRelation(vector<row*>* output, vector<string> curRow, vector<hNo
 
 }
 
+// release the memory after join
+void deleteNode(hNode* curNode){
+    // base case
+    if(curNode->value != 0){
+        // the node is no longer used
+        delete &curNode;
+        return;
+    }
+
+    // iterate through the hashmap in the node
+    unordered_map<string,hNode*>::iterator it;
+    for (it = curNode->children.begin(); it != curNode->children.end(); it++)
+    {
+        deleteNode(it->second);
+    }
+    // the node is no longer used
+    delete &curNode;
+}
+
+
 Relation* Operator::join(vector<Relation*> relations){
     Relation* output = new Relation();
-    unordered_set<string> attributes;
 
     // define a global attribute order for join
+
+    // get all attributes without duplication
+    unordered_set<string> attributes;
     for(Relation* relation: relations){
         for(string* att: *relation->schema){
             attributes.insert(*att);
         }
     }
 
+    // find some global order
     vector<string> ordered_attributes;
     unordered_set<string>::iterator it;
     for (it = attributes.begin(); it != attributes.end(); it++){
@@ -300,7 +322,7 @@ Relation* Operator::join(vector<Relation*> relations){
 
     // root hash node for each relation
     vector<hNode*> nodes;
-    // for each relation, ordered attrs (wrt global order) and their indics
+    // for each relation, ordered attrs (wrt global order) and their indics to original order
     vector<vector<string>> attrs;
     vector<vector<int>> attrsIdx;
     // for each relation, current level (used for join later)
@@ -311,8 +333,10 @@ Relation* Operator::join(vector<Relation*> relations){
         vector<string> attr;
         vector<int> idx;
 
+        // iterate through ordered global attributes 
         for(string curAtt: ordered_attributes){
             int curIdx = getAttIdx(relation->schema, curAtt);
+            // if found this attribute
             if(curIdx != -1){
                 attr.push_back(curAtt);
                 idx.push_back(curIdx);
@@ -340,6 +364,10 @@ Relation* Operator::join(vector<Relation*> relations){
     
     vector<string> empty;
     nodesJoinToRelation(output->relation, empty, nodes, levels, 0, (int )ordered_attributes.size(), ordered_attributes, attrs);
+    
+    for(hNode* node:nodes){
+        deleteNode(node);
+    }
 
     return output;
 
