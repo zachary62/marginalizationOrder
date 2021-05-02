@@ -6,6 +6,13 @@
 
 using namespace std;
 
+// multi-level hash map
+struct hNode{
+    unordered_map<string,hNode*> children;
+    // assume that leaf node has non-zero value
+    int value = 0;
+};
+
 struct row
 {
   vector<string> attr;
@@ -20,13 +27,23 @@ public:
     Relation(std::string dir);
     ~Relation();
     void print();
+    void buildIdx();
+    int getAttIdx(string att);
     int size(){
       return relation->size();
     };
 
     vector<row>* relation;
-    // attribute names
-    vector<string>* schema;
+    // original attributes from the file
+    vector<string> schema;
 
+
+    hNode* trie;
+    // ordered attr for the trie
+    vector<string> orderedAttr;
+    // idx of orderedAttr
+    vector<int> idx;
+
+    
 };
 

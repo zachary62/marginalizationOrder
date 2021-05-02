@@ -52,9 +52,43 @@ void join_example(){
     relations.push_back(S);
     relations.push_back(T);
 
+    Database db(relations);
+    db.Preprocess();
+
     Operator op;
-    Relation* R2 = op.join(relations);
+    Relation* R2 = db.join(relations);
     R2->print();
+
+    Relation* R3 = db.marginalize(R2, "A");
+    R3->print();
+
+    Relation* R4 = db.marginalize(R3, "B");
+    R4->print();
+
+    cout<<"good\n";
+}
+
+void small_example(){
+    Relation* R = new Relation("data/small/R.csv");
+    R->print();
+    Relation* S = new Relation("data/small/S.csv");
+    S->print();
+    Relation* T = new Relation("data/small/T.csv");
+    T->print();
+
+    vector<Relation*> relations;
+    relations.push_back(R);
+    relations.push_back(S);
+    relations.push_back(T);
+
+    Database db(relations);
+    db.Preprocess();
+
+    db.eliminate("A");
+    db.eliminate("B");
+    db.eliminate("C");
+
+    cout<<"good!\n";
 }
 
 void logo_example(){
@@ -77,8 +111,11 @@ void logo_example(){
 
     clock_t start;
     double duration;
-    start = clock();
+    
     Database db(relations);
+
+    db.Preprocess();
+    start = clock();
 
     // db.eliminate("part_category_name");
     // db.eliminate("color_name");
@@ -106,7 +143,9 @@ void logo_example(){
     db.eliminate("is_trans");
     db.eliminate("theme_name");
     db.eliminate("parent_id");
+    
     db.eliminate("inventory_id");
+
     db.eliminate("color_id");
     db.eliminate("inventory_part_quantity");
     db.eliminate("part_num");
@@ -139,6 +178,7 @@ int main(int argc, char *argv[])
     string directory(argv[1]);
     logo_example();
     // test_marginalization(directory);
+    // small_example();
     // join_example();
     // cout<<CLOCKS_PER_SEC;
 

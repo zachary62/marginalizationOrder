@@ -19,7 +19,6 @@ using namespace std;
 
 Relation::Relation()
 { 
-    schema = new vector<string>;
     relation = new vector<row>;
 }
 
@@ -89,12 +88,11 @@ Relation::Relation(string dir)
     getline(input, line);
     ssLine << line;
 
-    schema = new vector<string>;
     string temp;    
 
     // read each attribute name
     while(getline(ssLine, temp, PARAMETER_SEPARATOR_CHAR)){
-        schema->push_back(temp);
+        schema.push_back(temp);
     }
     ssLine.clear();
     
@@ -108,7 +106,7 @@ Relation::Relation(string dir)
         
         row r = readCSVRow(line);
 
-        if (r.attr.size() != schema->size())
+        if (r.attr.size() != schema.size())
         {
             cout<< dir << " Different number of attributes. \n";
             exit(1);
@@ -118,26 +116,75 @@ Relation::Relation(string dir)
     }
 }
 
+// get index of attributes in the schema
+// return -1 if not existed
+int Relation::getAttIdx(string att){
+    for(unsigned int i = 0; i < schema.size(); i++){
+        if(schema[i] == att){
+            return i;
+        }
+    }
+    return -1;
+}
 
+void Relation::buildIdx(){
+
+    if(schema.size() != orderedAttr.size() ){
+        cout << "Can't build idx since schema and orderedAttrhas different size!\n"; 
+        exit(1);
+    }
+
+    // iterate through ordered global attributes 
+    for(string curAtt: orderedAttr){
+        int curIdx = getAttIdx(curAtt);
+        // if found this attribute
+        if(curIdx != -1){
+            idx.push_back(curIdx);
+        }
+    }
+
+}
+
+// release the memory after join
+void deleteNode(hNode* curNode){
+    // base case
+    if(curNode->value != 0){
+        // the node is no longer used
+        delete curNode;
+        return;
+    }
+
+    // iterate through the hashmap in the node
+    unordered_map<string,hNode*>::iterator it;
+    for (it = curNode->children.begin(); it != curNode->children.end(); it++)
+    {
+        deleteNode(it->second);
+    }
+    // the node is no longer used
+    delete curNode;
+}
 
 Relation::~Relation()
 {   
     // for(string* s: *schema){
     //     delete s;
     // }
-    delete schema;
+
     // for(row* r: *relation){
     //     for(string* s: *r->attr){
     //         delete s;
     //     }
     //     delete r;
     // }
+
+    deleteNode(trie);
+
     delete relation;
 }
 
 void Relation::print()
 {   
-    for(string s: *schema){
+    for(string s: schema){
         cout << s <<",";
     }
     cout << "\n";

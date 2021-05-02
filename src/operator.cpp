@@ -7,6 +7,7 @@
 #include <map>
 #include <iostream>
 #include <algorithm>
+#include <chrono>
 
 static const char COMMENT_CHAR = '#';
 static const char PARAMETER_SEPARATOR_CHAR = ',';
@@ -24,9 +25,11 @@ Operator::~Operator()
 
 }
 
+
+
 // helper function to marginalize
 // given the node, build the row, and add the row to relation
-void nodeToRelation(vector<row>* relation, vector<string> curRow, hNode* curNode){
+void Operator::trieToRelation(vector<row>* relation, vector<string> curRow, hNode* curNode){
     // base case
     if(curNode->value != 0){
         row r;
@@ -35,8 +38,6 @@ void nodeToRelation(vector<row>* relation, vector<string> curRow, hNode* curNode
 
         relation->push_back(r);
 
-        // the node is no longer used
-        delete curNode;
         return;
     }
 
@@ -48,12 +49,12 @@ void nodeToRelation(vector<row>* relation, vector<string> curRow, hNode* curNode
         vector<string> next = curRow;
         string att = it->first;
         next.push_back(att);
-        nodeToRelation(relation, next, it->second);
+        trieToRelation(relation, next, it->second);
         
     }
-    // the node is no longer used
-    delete curNode;
 }
+
+
 
 
 
@@ -64,14 +65,14 @@ Relation* Operator::marginalize(Relation* input, unordered_set<string> attrs)
     unordered_set<int> indics;
 
     // check attrs in the input relaiton
-    for(unsigned int i = 0; i < input->schema->size(); i++){
+    for(unsigned int i = 0; i < input->schema.size(); i++){
         // get each attribute in the input relaiton
-        string cur_attr = input->schema->at(i);
+        string cur_attr = input->schema[i];
 
         // if not in the marginalization list
         if(attrs.find(cur_attr) == attrs.end()){
             // add not marginalized attrs to new relation
-            output->schema->push_back(cur_attr);
+            output->schema.push_back(cur_attr);
             // add its index
             indics.insert(i);
         }
@@ -115,24 +116,14 @@ Relation* Operator::marginalize(Relation* input, unordered_set<string> attrs)
     
     vector<string> empty;
     // build relation from the built multi-level map
-    nodeToRelation(output->relation, empty, root);
-
+    trieToRelation(output->relation, empty, root);
     return output;
 
 }
 
-// get index of attributes in the schema
-// return -1 if not existed
-int getAttIdx(vector<string>* schema, string att){
-    for(unsigned int i = 0; i < schema->size(); i++){
-        if(schema->at(i) == att){
-            return i;
-        }
-    }
-    return -1;
-}
 
-hNode* buildHashNode(Relation* input, vector<int> idx){
+
+hNode* Operator::buildHashNode(Relation* input, vector<int> idx){
     // build multi level hash map
     hNode* root = new hNode();
     // for each row in the input relaiton
@@ -165,6 +156,26 @@ hNode* buildHashNode(Relation* input, vector<int> idx){
     return root;
 }
 
+Relation* Operator::generializedProject(Relation* input, vector<string> attrs){
+
+    Relation* output = new Relation();
+    output->orderedAttr = attrs;
+
+    vector<int> idx;
+
+    // iterate through ordered global attributes 
+    for(string curAtt: attrs){
+        int curIdx = input->getAttIdx(curAtt);
+        // if found this attribute
+        if(curIdx != -1){
+            idx.push_back(curIdx);
+        }
+    }
+
+    output->trie = buildHashNode(input, idx);
+
+    return output;
+}
 
 // given the nodes, build the row, and add the row to relation
 void nodesJoinToRelation(vector<row>* output, vector<string> curRow, vector<hNode*> curNodes, vector<int> levels, 
@@ -270,78 +281,17 @@ bool sortByVal(const pair<string, int> &a,
     return (a.second > b.second); 
 } 
 
-// release the memory after join
-void deleteNode(hNode* curNode){
-    // base case
-    if(curNode->value != 0){
-        // the node is no longer used
-        delete &curNode;
-        return;
-    }
 
-    // iterate through the hashmap in the node
-    unordered_map<string,hNode*>::iterator it;
-    for (it = curNode->children.begin(); it != curNode->children.end(); it++)
-    {
-        deleteNode(it->second);
-    }
-    // the node is no longer used
-    delete &curNode;
-}
-
-
-Relation* Operator::join(vector<Relation*> relations){
-
+Relation* Operator::join(vector<Relation*> relations, vector<string> ordered_attributes){
 
     if(relations.size() == 1){
         return relations[0];
     }
 
+
     Relation* output = new Relation();
+    output->schema = ordered_attributes;
 
-    // define a global attribute order for join
-
-    // get all attributes without duplication
-    // join attribute first
-    map<string,int> attributes;
-    for(Relation* relation: relations){
-        for(string att: *relation->schema){
-            if (attributes.find(att) == attributes.end()) {
-                attributes[att] = 1;
-            }
-            else{
-                attributes[att] ++;
-            }
-        }
-    }
-
-    // create a empty vector of pairs
-	vector<pair<string, int>> vec;
-
-    // copy key-value pairs from the map to the vector
-    map<string, int> :: iterator it2;
-    for (it2=attributes.begin(); it2!=attributes.end(); it2++) 
-    {
-        vec.push_back(make_pair(it2->first, it2->second));
-    }
-
-    // // sort the vector by increasing order of its pair's second value
-    sort(vec.begin(), vec.end(), sortByVal); 
-
-    // find some global order
-    vector<string> ordered_attributes;
-
-    for (auto& p: vec){
-        ordered_attributes.push_back(p.first);
-    }
-
-    for(string att: ordered_attributes){
-        // cout<<att<<"\n";
-        output->schema->push_back(att);
-    }
-    
-    
-    // build hash index for each relation
 
     // root hash node for each relation
     vector<hNode*> nodes;
@@ -352,45 +302,21 @@ Relation* Operator::join(vector<Relation*> relations){
     vector<int> levels;
     
     for(Relation* relation: relations){
-        // attribute and indices for this relation
-        vector<string> attr;
-        vector<int> idx;
 
-        // iterate through ordered global attributes 
-        for(string curAtt: ordered_attributes){
-            int curIdx = getAttIdx(relation->schema, curAtt);
-            // if found this attribute
-            if(curIdx != -1){
-                attr.push_back(curAtt);
-                idx.push_back(curIdx);
-            }
+        attrs.push_back(relation->orderedAttr);
+        attrsIdx.push_back(relation->idx);
+
+        if (relation->trie == NULL){
+            cout << "Trie hasn't been built for the relation\n"; 
+            exit(1);
         }
 
-        // for debug only
-        // for(string s: attr){
-        //     cout<< s << " ";
-        // }
-        // cout<< "\n";
-
-        // for(int s: idx){
-        //     cout<< s << " ";
-        // }
-        // cout<< "\n";
-
-        attrs.push_back(attr);
-        attrsIdx.push_back(idx);
-
-        hNode* root = buildHashNode(relation,idx);
-        nodes.push_back(root);
+        nodes.push_back(relation->trie);
         levels.push_back(0);
     }
-    
+
     vector<string> empty;
-    nodesJoinToRelation(output->relation, empty, nodes, levels, 0, (int )ordered_attributes.size(), ordered_attributes, attrs);
-    
-    for(hNode* node:nodes){
-        deleteNode(node);
-    }
+    nodesJoinToRelation(output->relation, empty, nodes, levels, 0, (int)ordered_attributes.size(), ordered_attributes, attrs);
 
     return output;
 

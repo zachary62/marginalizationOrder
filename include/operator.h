@@ -9,20 +9,16 @@ using namespace std;
 
 
 
-// multi-level hash map
-struct hNode{
-    unordered_map<string,hNode*> children;
-    // assume that leaf node has non-zero value
-    int value = 0;
-};
-
 class Operator
 {
 public:
     Operator();
     ~Operator();
+    hNode* buildHashNode(Relation* input, vector<int> idx);
     Relation* marginalize(Relation* R, unordered_set<string> attrs);
-    Relation* join(vector<Relation*> relations);
+    Relation* join(vector<Relation*> relations, vector<string> ordered_attributes);
+    Relation* generializedProject(Relation* input, vector<string> attrs);
+    void trieToRelation(vector<row>* relation, vector<string> curRow, hNode* curNode);
 
 };
 
