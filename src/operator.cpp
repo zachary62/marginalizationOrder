@@ -3,7 +3,10 @@
 
 #include <unordered_map>
 #include <unordered_set>
+#include <set>
+#include <map>
 #include <iostream>
+#include <algorithm>
 
 static const char COMMENT_CHAR = '#';
 static const char PARAMETER_SEPARATOR_CHAR = ',';
@@ -23,19 +26,13 @@ Operator::~Operator()
 
 // helper function to marginalize
 // given the node, build the row, and add the row to relation
-void nodeToRelation(vector<row*>* relation, vector<string> curRow, hNode* curNode){
+void nodeToRelation(vector<row>* relation, vector<string> curRow, hNode* curNode){
     // base case
     if(curNode->value != 0){
-        row* r = new row;
+        row r;
+        r.attr = curRow;
+        r.value = curNode->value;
 
-        // translate vector of string to vector of string*
-        vector<string*> attr_values;
-        for(string s: curRow){
-            attr_values.push_back(new string(s));
-        }
-        r->attr = new vector<string*>(attr_values);
-
-        r->value = curNode->value;
         relation->push_back(r);
 
         // the node is no longer used
@@ -69,13 +66,12 @@ Relation* Operator::marginalize(Relation* input, unordered_set<string> attrs)
     // check attrs in the input relaiton
     for(unsigned int i = 0; i < input->schema->size(); i++){
         // get each attribute in the input relaiton
-        string cur_attr = *input->schema->at(i);
+        string cur_attr = input->schema->at(i);
 
         // if not in the marginalization list
         if(attrs.find(cur_attr) == attrs.end()){
-            string * att = new string(cur_attr);
             // add not marginalized attrs to new relation
-            output->schema->push_back(att);
+            output->schema->push_back(cur_attr);
             // add its index
             indics.insert(i);
         }
@@ -84,12 +80,12 @@ Relation* Operator::marginalize(Relation* input, unordered_set<string> attrs)
     // build multi level hash map
     hNode* root = new hNode();
     // for each row in the input relaiton
-    for(row* r: *input->relation){
+    for(row r: *input->relation){
         // start with root node
         hNode* cur = root;
 
         // for each attribute value in this row
-        for(unsigned int i = 0; i < r->attr->size(); i++){
+        for(unsigned int i = 0; i < r.attr.size(); i++){
             // check if current attribute is marginalized (not found in indics)
             if(indics.find(i) == indics.end()){
                 // skip marginalized attributes
@@ -97,7 +93,7 @@ Relation* Operator::marginalize(Relation* input, unordered_set<string> attrs)
             }
 
             // if not marginalized, get the current attribute value
-            string cur_attr = *r->attr->at(i);
+            string cur_attr = r.attr[i];
             // cout << cur_attr <<"\n";
 
             // check if previous node has been built
@@ -113,7 +109,7 @@ Relation* Operator::marginalize(Relation* input, unordered_set<string> attrs)
 
         // after iterating over all attribute values, cur points to the leaf node
         // calculate value for leaf node
-        cur->value += r->value;
+        cur->value += r.value;
         // cout << "value: " << cur->value <<"\n";
     }
     
@@ -127,9 +123,9 @@ Relation* Operator::marginalize(Relation* input, unordered_set<string> attrs)
 
 // get index of attributes in the schema
 // return -1 if not existed
-int getAttIdx(vector<string*>* schema, string att){
+int getAttIdx(vector<string>* schema, string att){
     for(unsigned int i = 0; i < schema->size(); i++){
-        if(*schema->at(i) == att){
+        if(schema->at(i) == att){
             return i;
         }
     }
@@ -140,7 +136,7 @@ hNode* buildHashNode(Relation* input, vector<int> idx){
     // build multi level hash map
     hNode* root = new hNode();
     // for each row in the input relaiton
-    for(row* r: *input->relation){
+    for(row r: *input->relation){
         // start with root node
         hNode* cur = root;
 
@@ -148,7 +144,7 @@ hNode* buildHashNode(Relation* input, vector<int> idx){
         for(int i: idx){
 
             // get the current attribute value
-            string cur_attr = *r->attr->at(i);
+            string cur_attr = r.attr[i];
 
             // check if previous node has been built
             if(cur->children.find(cur_attr) == cur->children.end()){
@@ -163,7 +159,7 @@ hNode* buildHashNode(Relation* input, vector<int> idx){
 
         // after iterating over all attribute values, cur points to the leaf node
         // calculate value for leaf node
-        cur->value += r->value;
+        cur->value += r.value;
         // cout << "value: " << cur->value <<"\n";
     }
     return root;
@@ -171,25 +167,20 @@ hNode* buildHashNode(Relation* input, vector<int> idx){
 
 
 // given the nodes, build the row, and add the row to relation
-void nodesJoinToRelation(vector<row*>* output, vector<string> curRow, vector<hNode*> curNodes, vector<int> levels, 
+void nodesJoinToRelation(vector<row>* output, vector<string> curRow, vector<hNode*> curNodes, vector<int> levels, 
                         int curAttId, int maxAttId, vector<string> ordered_attributes, vector<vector<string>> attrs){
 
     // base case
     if(curAttId >= maxAttId){
-        row* r = new row;
-        // translate vector of string to vector of string*
-        vector<string*> attr_values;
-        for(string s: curRow){
-            attr_values.push_back(new string(s));
-        }
-        r->attr = new vector<string*>(attr_values);
-
+        row r;
+        r.attr = curRow;
 
         int value = 1;
         for(hNode* curNode: curNodes){
             value = value * curNode->value;
         }
-        r->value = value;
+
+        r.value = value;
         output->push_back(r);
         return;
     }
@@ -273,6 +264,12 @@ void nodesJoinToRelation(vector<row*>* output, vector<string> curRow, vector<hNo
 
 }
 
+bool sortByVal(const pair<string, int> &a, 
+               const pair<string, int> &b) 
+{ 
+    return (a.second > b.second); 
+} 
+
 // release the memory after join
 void deleteNode(hNode* curNode){
     // base case
@@ -294,29 +291,55 @@ void deleteNode(hNode* curNode){
 
 
 Relation* Operator::join(vector<Relation*> relations){
+
+
+    if(relations.size() == 1){
+        return relations[0];
+    }
+
     Relation* output = new Relation();
 
     // define a global attribute order for join
 
     // get all attributes without duplication
-    unordered_set<string> attributes;
+    // join attribute first
+    map<string,int> attributes;
     for(Relation* relation: relations){
-        for(string* att: *relation->schema){
-            attributes.insert(*att);
+        for(string att: *relation->schema){
+            if (attributes.find(att) == attributes.end()) {
+                attributes[att] = 1;
+            }
+            else{
+                attributes[att] ++;
+            }
         }
     }
 
+    // create a empty vector of pairs
+	vector<pair<string, int>> vec;
+
+    // copy key-value pairs from the map to the vector
+    map<string, int> :: iterator it2;
+    for (it2=attributes.begin(); it2!=attributes.end(); it2++) 
+    {
+        vec.push_back(make_pair(it2->first, it2->second));
+    }
+
+    // // sort the vector by increasing order of its pair's second value
+    sort(vec.begin(), vec.end(), sortByVal); 
+
     // find some global order
     vector<string> ordered_attributes;
-    unordered_set<string>::iterator it;
-    for (it = attributes.begin(); it != attributes.end(); it++){
-        // cout<< *it << "\n";
-        ordered_attributes.push_back(*it);
 
-        string * att = new string(*it);
-        // add not marginalized attrs to new relation
+    for (auto& p: vec){
+        ordered_attributes.push_back(p.first);
+    }
+
+    for(string att: ordered_attributes){
+        // cout<<att<<"\n";
         output->schema->push_back(att);
     }
+    
     
     // build hash index for each relation
 

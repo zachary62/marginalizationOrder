@@ -9,9 +9,12 @@ class Database
 {
 public:
     Database(std::string dir);
+    Database(vector<Relation*> relations);
     ~Database();
 
-    vector<Relation*>* relations;
+    void eliminate(string attribute);
+
+    vector<Relation*> relations;
     
 
 };

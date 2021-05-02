@@ -8,6 +8,8 @@
 #include <sstream>
 
 
+// based on https://stackoverflow.com/questions/1120140/how-can-i-read-and-parse-csv-files-in-c
+
 static const char COMMENT_CHAR = '#';
 static const char PARAMETER_SEPARATOR_CHAR = ',';
 
@@ -17,8 +19,58 @@ using namespace std;
 
 Relation::Relation()
 { 
-    schema = new vector<string*>;
-    relation = new vector<row*>;
+    schema = new vector<string>;
+    relation = new vector<row>;
+}
+
+enum class CSVState {
+    UnquotedField,
+    QuotedField,
+    QuotedQuote
+};
+
+row readCSVRow(const string &line) {
+    CSVState state = CSVState::UnquotedField;
+    row r;
+    r.value = 1;
+    r.attr.push_back("");
+    size_t i = 0; // index of the current field
+    for (char c : line) {
+        switch (state) {
+            case CSVState::UnquotedField:
+                switch (c) {
+                    case ',': // end of field
+                              r.attr.push_back(""); i++;
+                              break;
+                    case '"': state = CSVState::QuotedField;
+                              break;
+                    default:  r.attr[i].push_back(c);
+                              break; }
+                break;
+            case CSVState::QuotedField:
+                switch (c) {
+                    case '"': state = CSVState::QuotedQuote;
+                              break;
+                    default:  r.attr[i].push_back(c);
+                              break; }
+                break;
+            case CSVState::QuotedQuote:
+                switch (c) {
+                    case ',': // , after closing quote
+                              r.attr.push_back(""); i++;
+                              state = CSVState::UnquotedField;
+                              break;
+                    case '"': // "" -> "
+                              r.attr[i].push_back('"');
+                              state = CSVState::QuotedField;
+                              break;
+                    default:  // end of quote
+                              state = CSVState::UnquotedField;
+                              break; }
+                break;
+        }
+    }
+    return r;
 }
 
 Relation::Relation(string dir)
@@ -37,68 +89,63 @@ Relation::Relation(string dir)
     getline(input, line);
     ssLine << line;
 
-    schema = new vector<string*>;
-    string temp;
-    
+    schema = new vector<string>;
+    string temp;    
+
     // read each attribute name
     while(getline(ssLine, temp, PARAMETER_SEPARATOR_CHAR)){
-        string * att = new string(temp);
-        schema->push_back(att);
+        schema->push_back(temp);
     }
     ssLine.clear();
-
+    
     // read relation
-    relation = new vector<row*>;
+    relation = new vector<row>;
 
     while(getline(input, line)){
+
         if (line[0] == COMMENT_CHAR || line == "")
                 continue;
-        ssLine << line;
-        row* r = new row;
-        r->attr = new vector<string*>;
-        r->value = 1;
-        // read each attribute value
-        while(getline(ssLine, temp, PARAMETER_SEPARATOR_CHAR)){
-            string * att = new string(temp);
-            r->attr->push_back(att);
-        }
+        
+        row r = readCSVRow(line);
 
-        if (r->attr->size() != schema->size())
+        if (r.attr.size() != schema->size())
         {
             cout<< dir << " Different number of attributes. \n";
             exit(1);
         }
+        
         relation->push_back(r);
-        ssLine.clear();
     }
 }
 
+
+
 Relation::~Relation()
 {   
-    for(string* s: *schema){
-        delete s;
-    }
+    // for(string* s: *schema){
+    //     delete s;
+    // }
     delete schema;
-    for(row* r: *relation){
-        for(string* s: *r->attr){
-            delete s;
-        }
-        delete r;
-    }
+    // for(row* r: *relation){
+    //     for(string* s: *r->attr){
+    //         delete s;
+    //     }
+    //     delete r;
+    // }
     delete relation;
 }
 
 void Relation::print()
 {   
-    for(string* s: *schema){
-        cout << *s <<",";
+    for(string s: *schema){
+        cout << s <<",";
     }
     cout << "\n";
-    for(row* r: *relation){
-        for(string* s: *r->attr){
-            cout << *s <<",";
+    for(row r: *relation){
+        for(string s: r.attr){
+            cout << s <<",";
         }
-        cout << r->value;
+        cout << r.value;
         cout << "\n";
     }
 }

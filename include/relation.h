@@ -8,7 +8,7 @@ using namespace std;
 
 struct row
 {
-  vector<string*>* attr;
+  vector<string> attr;
   // aggregation value
   int value;
 };
@@ -20,12 +20,13 @@ public:
     Relation(std::string dir);
     ~Relation();
     void print();
+    int size(){
+      return relation->size();
+    };
 
-    vector<row*>* relation;
+    vector<row>* relation;
     // attribute names
-    vector<string*>* schema;
-
-    
+    vector<string>* schema;
 
 };
 
