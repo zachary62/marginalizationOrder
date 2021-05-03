@@ -161,14 +161,13 @@ void Database::eliminate(string attribute){
     for(unsigned int i = 0; i < this->relations.size(); i++){
         
         Relation* relation = this->relations[i];
-
+        
         // check if this relation contains attribute
         if(find(relation->schema.begin(), relation->schema.end(), attribute) != relation->schema.end()){
             // if contains
             idx.push_back(i);
         }
     }
-
 
     vector<Relation*> ToJoin;
 
@@ -184,8 +183,6 @@ void Database::eliminate(string attribute){
         this->relations.erase(this->relations.begin() + idx[i]);
     }
 
-
-
     Operator op;
     Relation* joinResult = join(ToJoin);
 
@@ -197,11 +194,15 @@ void Database::eliminate(string attribute){
     cout << margResult->size() << "\n";
 
 
-    // for(Relation* r: ToJoin){
-    //     delete r;
-    // }
-    // delete joinResult;
+    for(Relation* r: ToJoin){
+        delete r;
+    }
+
+    if(ToJoin.size() > 1){
+        delete joinResult;
+    }
 
     this->relations.push_back(margResult);
+
 
 }

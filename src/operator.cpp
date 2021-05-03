@@ -284,6 +284,7 @@ bool sortByVal(const pair<string, int> &a,
 
 Relation* Operator::join(vector<Relation*> relations, vector<string> ordered_attributes){
 
+    
     if(relations.size() == 1){
         return relations[0];
     }
@@ -291,6 +292,7 @@ Relation* Operator::join(vector<Relation*> relations, vector<string> ordered_att
 
     Relation* output = new Relation();
     output->schema = ordered_attributes;
+    
 
 
     // root hash node for each relation

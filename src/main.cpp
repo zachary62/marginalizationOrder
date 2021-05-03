@@ -168,6 +168,38 @@ void logo_example(){
     cout << "Good!\n"; 
 }
 
+void imdb_example(){
+    
+    Relation* movie_info = new Relation("data/imdb/movie_info.csv");
+    cout << "GoodMovie!\n"; 
+    Relation* cast_info = new Relation("data/imdb/cast_info.csv");
+    cout << "GoodCast!\n"; 
+    vector<Relation*> relations;
+    relations.push_back(cast_info);
+    relations.push_back(movie_info);
+
+
+    clock_t start;
+    double duration;
+    
+    Database db(relations);
+
+    db.Preprocess();
+    cout << "GoodPre!\n"; 
+    start = clock();
+
+
+    db.eliminate("movie_id");
+
+
+
+    duration = (clock() - start) / (double)CLOCKS_PER_SEC;
+    cout << "time to marginalization: " << duration << "\n"; 
+    
+    // R->print();
+    cout << "Good!\n"; 
+}
+
 int main(int argc, char *argv[])
 {
     if(argc <=1 ){
@@ -176,7 +208,8 @@ int main(int argc, char *argv[])
     }
     
     string directory(argv[1]);
-    logo_example();
+    // logo_example();
+    imdb_example();
     // test_marginalization(directory);
     // small_example();
     // join_example();
