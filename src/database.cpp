@@ -143,7 +143,7 @@ Relation*  Database::marginalize(Relation* relation, string attr){
     Operator op;
     Relation* margResult = op.generializedProject(relation, newAttrs);
 
-    vector<string> empty;
+    vector<int> empty;
     // build relation from the built multi-level map
     op.trieToRelation(margResult->relation, empty, margResult->trie);
 
@@ -194,13 +194,13 @@ void Database::eliminate(string attribute){
     cout << margResult->size() << "\n";
 
 
-    for(Relation* r: ToJoin){
-        delete r;
-    }
+    // for(Relation* r: ToJoin){
+    //     delete r;
+    // }
 
-    if(ToJoin.size() > 1){
-        delete joinResult;
-    }
+    // if(ToJoin.size() > 1){
+    //     delete joinResult;
+    // }
 
     this->relations.push_back(margResult);
 

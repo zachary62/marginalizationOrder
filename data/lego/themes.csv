@@ -1,615 +1,615 @@
 theme_id,theme_name,parent_id
-1,Technic,
-2,Arctic Technic,1.0
-3,Competition,1.0
-4,Expert Builder,1.0
-5,Model,1.0
-6,Airport,5.0
-7,Construction,5.0
-8,Farm,5.0
-9,Fire,5.0
-10,Harbor,5.0
-11,Off-Road,5.0
-12,Race,5.0
-13,Riding Cycle,5.0
-14,Robot,5.0
-15,Traffic,5.0
-16,RoboRiders,1.0
-17,Speed Slammers,1.0
-18,Star Wars,1.0
-19,Supplemental,1.0
-20,Throwbot Slizer,1.0
-21,Universal Building Set,1.0
-22,Creator,
-23,Basic Model,22.0
-24,Airport,23.0
-25,Castle,23.0
-26,Construction,23.0
-27,Race,23.0
-28,Harbor,23.0
-29,Train,23.0
-30,Traffic,23.0
-31,Creature,23.0
-32,Robot,23.0
-33,Food & Drink,23.0
-34,Building,23.0
-35,Cargo,23.0
-36,Fire,23.0
-37,Basic Set,22.0
-38,Model,22.0
-39,Traffic,38.0
-40,Creature,38.0
-41,Riding Cycle,38.0
-42,Airport,38.0
-43,Building,38.0
-44,Recreation,38.0
-45,Cargo,38.0
-46,Harbor,38.0
-47,Fire,38.0
-48,Supplemental,22.0
-49,Mecha,22.0
-50,Town,
-51,Arctic,50.0
-52,City,50.0
-53,Airport,52.0
-54,Cargo,52.0
-55,Coast Guard,52.0
-56,Construction,52.0
-57,Farm,52.0
-58,Fire,52.0
-59,Harbor,52.0
-60,Hospital,52.0
-61,Police,52.0
-62,Supplemental,52.0
-63,Traffic,52.0
-64,Off-Road,52.0
-65,Arctic,52.0
-66,Trains,52.0
-67,Classic Town,50.0
-68,Airport,67.0
-69,Building,67.0
-70,Cargo,67.0
-71,Coast Guard,67.0
-72,Construction,67.0
-73,Farm,67.0
-74,Fire,67.0
-75,Food & Drink,67.0
-76,Station,67.0
-77,Harbor,67.0
-78,Hospital,67.0
-79,Off-Road,67.0
-80,Police,67.0
-81,Post Office,67.0
-82,Race,67.0
-83,Recreation,67.0
-84,Supplemental,67.0
-85,Traffic,67.0
-86,Divers,50.0
-87,Extreme Team,50.0
-88,Launch Command,50.0
-89,Outback,50.0
-90,Paradisa,50.0
-91,Race,50.0
-92,Res-Q,50.0
-93,Space Port,50.0
-94,Town Jr.,50.0
-95,Cargo,94.0
-96,Coast Guard,94.0
-97,Construction,94.0
-98,Fire,94.0
-99,Gas Station,94.0
-100,Police,94.0
-101,Race,94.0
-102,Supplemental,94.0
-103,Traffic,94.0
-104,Town Plan,50.0
-105,World City,50.0
-106,Airport,105.0
-107,Coast Guard,105.0
-108,Fire,105.0
-109,Food & Drink,105.0
-110,Harbor,105.0
-111,Police,105.0
-112,Racers,
-113,Drome Racers,112.0
-114,Ferrari,112.0
-115,Lamborghini,112.0
-116,Power Racers,112.0
-117,Radio Control,112.0
-118,Speed Racer,112.0
-119,Supplemental,112.0
-120,Tiny Turbos,112.0
-121,Track System,112.0
-122,Williams F1,112.0
-123,World Racers,112.0
-124,Supplemental,123.0
-125,Xalax,112.0
-126,Space,
-127,Alien Conquest,126.0
-128,Blacktron I,126.0
-129,Blacktron II,126.0
-130,Classic Space,126.0
-131,Exploriens,126.0
-132,Futuron,126.0
-133,Ice Planet 2002,126.0
-134,Insectoids,126.0
-135,Life On Mars,126.0
-136,M:Tron,126.0
-137,Mars Mission,126.0
-138,RoboForce,126.0
-139,Space Police I,126.0
-140,Space Police II,126.0
-141,Space Police III,126.0
-142,Spyrius,126.0
-143,Supplemental,126.0
-144,UFO,126.0
-145,Unitron,126.0
-146,Galaxy Squad,126.0
-147,Pirates,
-148,Pirates I,147.0
-149,Imperial Armada,148.0
-150,Imperial Guards,148.0
-151,Imperial Soldiers,148.0
-152,Islanders,148.0
-153,Pirates II,147.0
-154,Pirates III,147.0
-155,Modular Buildings,
-156,Mini,155.0
-157,Bricktober,155.0
-158,Star Wars,
-159,Mini,158.0
-160,Star Wars Clone Wars,159.0
-161,Star Wars Episode 2,159.0
-162,Star Wars Episode 3,159.0
-163,Star Wars Episode 4/5/6,159.0
-164,Star Wars Episode 1,159.0
-165,Star Wars Clone Wars,158.0
-166,Star Wars Episode 1,158.0
-167,Star Wars Episode 2,158.0
-168,Star Wars Episode 3,158.0
-169,Star Wars Episode 4/5/6,158.0
-170,Star Wars Other,158.0
-171,Ultimate Collector Series,158.0
-172,Star Wars Episode 1,171.0
-173,Star Wars Episode 3,171.0
-174,Star Wars Episode 4/5/6,171.0
-175,Star Wars Episode 2,171.0
-176,Planet Series 1,158.0
-177,Planet Series 2,158.0
-178,Minifig Pack,158.0
-179,Planet Series 3,158.0
-180,Planet Series 4,158.0
-181,Star Wars Episode 4/5/6,180.0
-182,Star Wars Rebels,158.0
-183,Star Wars Expanded Universe,158.0
-184,Star Wars Episode 7,158.0
-185,Star Wars Rogue One,158.0
-186,Castle,
-187,Black Falcons,186.0
-188,Black Knights,186.0
-189,Classic Castle,186.0
-190,Crusaders,186.0
-191,Dark Forest,186.0
-192,Dragon Knights,186.0
-193,Fantasy Era,186.0
-194,Forestmen,186.0
-195,Fright Knights,186.0
-196,Kingdoms,186.0
-197,Knights Kingdom I,186.0
-198,Knights Kingdom II,186.0
-199,Lion Knights,186.0
-200,My Own Creation,186.0
-201,Royal Knights,186.0
-202,Supplemental,186.0
-203,Wolfpack,186.0
-204,Designer Sets,
-205,Building,204.0
-206,Seasonal,
-207,Advent,206.0
-208,City,207.0
-209,Star Wars,207.0
-210,Belville,207.0
-211,Castle,207.0
-212,Classic Basic,207.0
-213,Clikits,207.0
-214,Creator,207.0
-215,Pirates,207.0
-216,Friends,207.0
-217,Advent Sub-Set,206.0
-218,Belville,217.0
-219,Castle,217.0
-220,City,217.0
-221,Classic Basic,217.0
-222,Clikits,217.0
-223,Creator,217.0
-224,Pirates,217.0
-225,Star Wars,217.0
-226,Friends,217.0
-227,Christmas,206.0
-228,Creator,227.0
-229,Easter,206.0
-230,Halloween,206.0
-231,Thanksgiving,206.0
-232,Valentine,206.0
-233,Train,
-234,12V,233.0
-235,4.5V,233.0
-236,9V,233.0
-237,My Own Creation,236.0
-238,My Own Train,236.0
-239,World City,236.0
-240,RC Train,233.0
-241,Supplemental,233.0
-242,12V,241.0
-243,4.5V,241.0
-244,9V,241.0
-245,RC Train,241.0
-246,Harry Potter,
-247,Chamber of Secrets,246.0
-248,Goblet of Fire,246.0
-249,Order of the Phoenix,246.0
-250,Prisoner of Azkaban,246.0
-251,Sorcerer's Stone,246.0
-252,Architecture,
-253,Skylines,252.0
-254,Bulk Bricks,
-255,Castle,254.0
-256,Technic,254.0
-257,Train,254.0
-258,Mindstorms,
-259,NXT,258.0
-260,RCX,258.0
-261,Star Wars,258.0
-262,EV3,258.0
-263,Pirates of the Caribbean,
-264,Indiana Jones,
-265,Kingdom of the Crystal Skull,264.0
-266,Last Crusade,264.0
-267,Raiders of the Lost Ark,264.0
-268,Temple of Doom,264.0
-269,Cars,
-270,Ben 10,
-271,Prince of Persia,
-272,SpongeBob SquarePants,
-273,Studios,
-274,Jurassic Park III,273.0
-275,Toy Story,
-276,Sculptures,
-277,Mosaic,276.0
-278,Model Team,
-279,4 Juniors,
-280,Jack Stone,279.0
-281,Police,280.0
-282,Airport,280.0
-283,Fire,280.0
-284,Traffic,280.0
-285,Gas Station,280.0
-286,Pirates,279.0
-287,Spider-Man,279.0
-288,Spider-Man 2,287.0
-289,Supplemental,279.0
-290,Town,279.0
-291,Police,290.0
-292,Traffic,290.0
-293,Construction,290.0
-294,Gas Station,290.0
-295,Fire,290.0
-296,Adventurers,
-297,Desert,296.0
-298,Dino Island,296.0
-299,Jungle,296.0
-300,Orient Expedition,296.0
-301,Other,
-302,Agents,
-303,Ultra Agents,302.0
-304,Alpha Team,
-305,Mission Deep Sea,304.0
-306,Mission Deep Freeze,304.0
-307,Aquazone,
-308,Aquanauts,307.0
-309,Aquaraiders I,307.0
-310,Aquaraiders II,307.0
-311,Aquasharks,307.0
-312,Hydronauts,307.0
-313,Stingrays,307.0
-314,Supplemental,307.0
-315,Atlantis,
-316,Mini,315.0
-317,Avatar,
-318,Belville,
-319,Fairy-Tale,318.0
-320,Golden Land,318.0
-321,Hospital,318.0
-322,Playhouse,318.0
-323,Recreation,318.0
-324,Bionicle,
-325,Agori,324.0
-326,Barraki,324.0
-327,Battle Vehicles,324.0
-328,Bohrok,324.0
-329,Bohrok Va,324.0
-330,Bohrok-Kal,324.0
-331,Glatorian,324.0
-332,Glatorian Legends,324.0
-333,Matoran of Light,324.0
-334,Matoran of Mahri Nui,324.0
-335,Matoran of Mata Nui,324.0
-336,Matoran of Metru Nui,324.0
-337,Matoran of Voya Nui,324.0
-338,Mistika,324.0
-339,Phantoka,324.0
-340,Piraka,324.0
-341,Playsets,324.0
-342,Rahaga,324.0
-343,Rahi,324.0
-344,Rahkshi,324.0
-345,Stars,324.0
-346,Supplemental,324.0
-347,Titans,324.0
-348,Toa,324.0
-349,Toa Hagah,324.0
-350,Toa Hordika,324.0
-351,Toa Inika,324.0
-352,Toa Mahri,324.0
-353,Toa Metru,324.0
-354,Toa Nuva,324.0
-355,Tohunga,324.0
-356,Turaga,324.0
-357,Vahki,324.0
-358,Visorak,324.0
-359,Warriors,324.0
-360,Protectors,324.0
-361,Skull Spiders,324.0
-362,Toa Okoto,324.0
-363,Boat,
-364,Building Set with People,
-365,Classic,
-366,Basic Set,365.0
-367,Building,365.0
-368,HO 1:87 Vehicles,365.0
-369,Jumbo Bricks,365.0
-370,Mosaic,365.0
-371,Supplemental,365.0
-372,Town Plan,365.0
-373,Vehicle,365.0
-374,Airport,373.0
-375,Farm,373.0
-376,Fire,373.0
-377,Harbor,373.0
-378,Traffic,373.0
-379,Supplemental,373.0
-380,Train,373.0
-381,Construction,373.0
-382,Cargo,373.0
-383,Wooden Box Set,365.0
-384,Dino 2010,
-385,Dino Attack,
-386,Dinosaurs,
-387,Discovery,
-388,Disney's Mickey Mouse,
-389,Exo-Force,
-390,Fabuland,
-391,Hospital,390.0
-392,Post Office,390.0
-393,Harbor,390.0
-394,Airport,390.0
-395,Fire,390.0
-396,Police,390.0
-397,Factory,
-398,FIRST LEGO League,
-399,Freestyle,
-400,Hero Factory,
-401,Heroes,400.0
-402,Vehicles,400.0
-403,Villains,400.0
-404,Hobby Sets,
-405,Homemaker,
-406,Inventor,
-407,Island Xtreme Stunts,
-408,LEGO Brand Store,
-409,Monthly Mini Model Build,408.0
-410,Pick A Model,408.0
-411,Legoland,
-412,Airport,411.0
-413,Building,411.0
-414,Castle,411.0
-415,Coast Guard,411.0
-416,Construction,411.0
-417,Fire,411.0
-418,Gas Station,411.0
-419,Harbor,411.0
-420,Hospital,411.0
-421,Police,411.0
-422,Space,411.0
-423,Vehicle,411.0
-424,Western,411.0
-425,Legoland Parks,
-426,Bionicle,425.0
-427,Holiday,425.0
-428,Christmas,425.0
-429,Halloween,425.0
-430,Pirates,425.0
-431,Star Wars,425.0
-432,Master Building Academy,
-433,Minitalia,
-434,Ninja,
-435,Ninjago,
-436,Airjitzu,435.0
-437,Pharaoh's Quest,
-438,Power Functions,
-439,Power Miners,
-440,Primo,
-441,Quatro,
-442,Rock Raiders,
-443,Service Packs,
-444,Adventurers,443.0
-445,Aquazone,443.0
-446,Belville,443.0
-447,Castle,443.0
-448,Fabuland,443.0
-449,Pirates,443.0
-450,Primo,443.0
-451,Scala,443.0
-452,Space,443.0
-453,Technic,443.0
-454,Town,443.0
-455,Classic Town,454.0
-456,Train,443.0
-457,Western ,443.0
-458,Sports,
-459,Basketball,458.0
-460,Gravity Games,458.0
-461,Hockey,458.0
-462,Soccer,458.0
-463,Spybiotics,
-464,Time Cruisers,
-465,Universal Building Set,
-466,Airport,465.0
-467,Basic,465.0
-468,Basic Model,465.0
-469,Basic Set,465.0
-470,Classic Basic,465.0
-471,Ferries,465.0
-472,Gears,465.0
-473,Supplemental,465.0
-474,Vikings,
-475,Western,
-476,Cowboys,475.0
-477,Indians,475.0
-478,X-Pod,
-479,Creator,478.0
-480,Znap,
-481,Dino,
-482,Super Heroes,
-483,Guardians of the Galaxy,482.0
-484,Batman,482.0
-485,Ultimate Collector Series,484.0
-486,Justice League,482.0
-487,Avengers,482.0
-488,Spider-Man,482.0
-489,Superman,482.0
-490,Iron Man,482.0
-491,X-Men,482.0
-492,Constraction,482.0
-493,Marvel,482.0
-494,Friends,
-495,Jungle Rescue,494.0
-496,Animals,494.0
-497,Books,
-498,Technic,497.0
-499,Train,497.0
-500,Clikits,
-501,Gear,
-502,Game,501.0
-503,Key Chain,501.0
-504,Duplo,
-505,Basic Set,504.0
-506,Cars,504.0
-507,Educational and Dacta,
-508,4 Juniors,507.0
-509,Adventurers,507.0
-510,Boat,507.0
-511,Building Set with People,507.0
-512,Castle,507.0
-513,Classic,507.0
-514,Creator,507.0
-515,Dinosaurs,507.0
-516,Explore,507.0
-517,Learning,507.0
-518,Mindstorms,507.0
-519,NXT,518.0
-520,RCX,518.0
-521,WeDo,518.0
-522,Primo,507.0
-523,Samsonite,507.0
-524,Service Packs,507.0
-525,Technic,524.0
-526,Soft Bricks,507.0
-527,Space,507.0
-528,Supplemental,507.0
-529,Technic,507.0
-530,Control Lab,529.0
-531,eLAB,529.0
-532,Supplemental,529.0
-533,Town,507.0
-534,Universal Building Set,507.0
-535,Collectible Minifigures,
-536,Series 1 Minifigures,535.0
-537,Series 2 Minifigures,535.0
-538,Series 3 Minifigures,535.0
-539,Series 4 Minifigures,535.0
-540,Series 5 Minifigures,535.0
-541,Series 6 Minifigures,535.0
-542,Series 7 Minifigures,535.0
-543,Series 8 Minifigures,535.0
-544,Series 9 Minifigures,535.0
-545,Series 10 Minifigures,535.0
-546,Team GB,535.0
-547,Series 11 Minifigures,535.0
-548,Series 12 Minifigures,535.0
-549,The LEGO Movie Series,535.0
-550,The Simpsons,535.0
-551,Series 13 Minifigures,535.0
-552,Series 14 Minifigures,535.0
-553,The Simpsons Series 2,535.0
-554,Series 15 Minifigures,535.0
-555,Disney,535.0
-556,Series 16 Minifigures,535.0
-557,DFB Minifigures,535.0
-558,Monster Fighters,
-559,Value Packs,
-560,Universe,
-561,The Hobbit and Lord of the Rings,
-562,The Hobbit,561.0
-563,An Unexpected Journey,562.0
-564,The Desolation of Smaug,562.0
-565,The Battle of the Five Armies,562.0
-566,The Lord of the Rings,561.0
-567,The Fellowship of the Ring,566.0
-568,The Two Towers,566.0
-569,The Return of the King,566.0
-570,Teenage Mutant Ninja Turtles,
-571,Legends of Chima,
-572,Speedorz,571.0
-573,Constraction,571.0
-574,Legend Beasts,571.0
-575,The Lone Ranger,
-576,LEGO Ideas and CUUSOO,
-577,Minecraft,
-578,The LEGO Movie,
-579,Disney Princess,
-580,Mixels,
-581,Series 1,580.0
-582,Series 2,580.0
-583,Series 3,580.0
-584,Series 4,580.0
-585,Series 5,580.0
-586,Series 6,580.0
-587,Series 7,580.0
-588,Series 8,580.0
-589,Series 9,580.0
-590,Fusion,
-591,Juniors,
-592,DC Comics Super Heroes,591.0
-593,Disney Princess,591.0
-594,Fantasy,591.0
-595,Friends,591.0
-596,Marvel Super Heroes,591.0
-597,Nijago,591.0
-598,Promotional,
-599,LEGO Exclusive,
-600,Elves,
-601,Speed Champions,
-602,Jurassic World,
-603,Scooby-Doo,
-604,Dimensions,
-605,Nexo Knights,
-606,Angry Birds,
-607,Ghostbusters,
-608,Disney,
-609,The LEGO Batman Movie,535.0
-610,Brickheadz,
-611,Series 17 Minifigures,535.0
-612,Star Wars Episode 8,158.0
-613,Freemakers,158.0
-614,Jungle,52.0
+0,196,63
+1,105,0
+2,369,0
+3,244,0
+4,347,0
+5,152,1
+6,195,1
+7,77,1
+8,223,1
+9,178,1
+10,295,1
+11,238,1
+12,183,1
+13,192,1
+14,251,1
+15,348,0
+16,299,0
+17,333,0
+18,114,0
+19,233,0
+20,143,0
+21,396,63
+22,240,5
+23,152,7
+24,313,7
+25,195,7
+26,238,7
+27,178,7
+28,264,7
+29,251,7
+30,217,7
+31,192,7
+32,123,7
+33,191,7
+34,188,7
+35,223,7
+36,280,5
+37,347,5
+38,251,8
+39,217,8
+40,183,8
+41,152,8
+42,191,8
+43,103,8
+44,188,8
+45,178,8
+46,223,8
+47,114,5
+48,133,5
+49,202,63
+50,130,10
+51,41,10
+52,152,12
+53,188,12
+54,261,12
+55,195,12
+56,77,12
+57,223,12
+58,178,12
+59,370,12
+60,106,12
+61,114,12
+62,251,12
+63,295,12
+64,130,12
+65,2,12
+66,277,10
+67,152,15
+68,191,15
+69,188,15
+70,261,15
+71,195,15
+72,77,15
+73,223,15
+74,123,15
+75,176,15
+76,178,15
+77,370,15
+78,295,15
+79,106,15
+80,358,15
+81,238,15
+82,103,15
+83,114,15
+84,251,15
+85,235,10
+86,129,10
+87,21,10
+88,164,10
+89,116,10
+90,238,10
+91,0,10
+92,78,10
+93,247,10
+94,188,18
+95,261,18
+96,195,18
+97,223,18
+98,113,18
+99,106,18
+100,238,18
+101,114,18
+102,251,18
+103,350,10
+104,245,10
+105,152,19
+106,261,19
+107,223,19
+108,123,19
+109,178,19
+110,106,19
+111,210,63
+112,146,20
+113,156,20
+114,300,20
+115,284,20
+116,249,20
+117,395,20
+118,114,20
+119,253,20
+120,397,20
+121,306,20
+122,266,20
+123,114,21
+124,356,20
+125,391,63
+126,205,22
+127,225,22
+128,112,22
+129,390,22
+130,318,22
+131,75,22
+132,278,22
+133,155,22
+134,387,22
+135,73,22
+136,268,22
+137,36,22
+138,89,22
+139,81,22
+140,70,22
+141,184,22
+142,114,22
+143,137,22
+144,159,22
+145,311,22
+146,326,63
+147,13,23
+148,182,24
+149,35,24
+150,208,24
+151,224,24
+152,161,23
+153,141,23
+154,312,63
+155,228,25
+156,18,25
+157,333,63
+158,228,26
+159,285,27
+160,291,27
+161,65,27
+162,375,27
+163,398,27
+164,285,26
+165,398,26
+166,291,26
+167,65,26
+168,375,26
+169,199,26
+170,366,26
+171,398,28
+172,65,28
+173,375,28
+174,291,28
+175,357,26
+176,86,26
+177,399,26
+178,349,26
+179,345,26
+180,375,29
+181,92,26
+182,334,26
+183,166,26
+184,388,26
+185,313,63
+186,215,30
+187,203,30
+188,139,30
+189,125,30
+190,131,30
+191,157,30
+192,275,30
+193,361,30
+194,310,30
+195,281,30
+196,4,30
+197,181,30
+198,24,30
+199,373,30
+200,286,30
+201,114,30
+202,64,30
+203,250,63
+204,191,31
+205,200,63
+206,330,32
+207,41,33
+208,333,33
+209,324,33
+210,313,33
+211,134,33
+212,336,33
+213,396,33
+214,326,33
+215,236,33
+216,1,32
+217,324,34
+218,313,34
+219,41,34
+220,134,34
+221,336,34
+222,396,34
+223,326,34
+224,333,34
+225,236,34
+226,57,32
+227,396,35
+228,271,32
+229,341,32
+230,287,32
+231,263,32
+232,264,63
+233,20,36
+234,274,36
+235,307,36
+236,373,37
+237,304,37
+238,245,37
+239,74,36
+240,114,36
+241,20,38
+242,274,38
+243,307,38
+244,74,38
+245,209,63
+246,135,39
+247,198,39
+248,46,39
+249,163,39
+250,30,39
+251,368,63
+252,136,40
+253,177,63
+254,313,41
+255,196,41
+256,264,41
+257,148,63
+258,102,42
+259,314,42
+260,333,42
+261,5,42
+262,80,63
+263,221,63
+264,120,43
+265,19,43
+266,10,43
+267,38,43
+268,328,63
+269,241,63
+270,329,63
+271,189,63
+272,206,63
+273,94,44
+274,294,63
+275,107,63
+276,62,45
+277,362,63
+278,117,63
+279,259,46
+280,106,47
+281,152,47
+282,223,47
+283,251,47
+284,113,47
+285,326,46
+286,363,46
+287,104,48
+288,114,46
+289,202,46
+290,106,49
+291,251,49
+292,195,49
+293,113,49
+294,223,49
+295,51,63
+296,60,50
+297,377,50
+298,101,50
+299,87,50
+300,379,63
+301,173,63
+302,172,51
+303,42,63
+304,229,52
+305,338,52
+306,289,63
+307,58,53
+308,158,53
+309,260,53
+310,160,53
+311,298,53
+312,331,53
+313,114,53
+314,297,63
+315,228,54
+316,317,63
+317,324,63
+318,151,55
+319,187,55
+320,370,55
+321,212,55
+322,103,55
+323,246,63
+324,360,56
+325,220,56
+326,154,56
+327,393,56
+328,145,56
+329,9,56
+330,193,56
+331,340,56
+332,323,56
+333,320,56
+334,332,56
+335,293,56
+336,39,56
+337,33,56
+338,201,56
+339,174,56
+340,16,56
+341,342,56
+342,34,56
+343,99,56
+344,216,56
+345,114,56
+346,40,56
+347,371,56
+348,84,56
+349,115,56
+350,302,56
+351,337,56
+352,147,56
+353,222,56
+354,37,56
+355,267,56
+356,335,56
+357,226,56
+358,272,56
+359,149,56
+360,71,56
+361,25,56
+362,381,63
+363,162,63
+364,303,63
+365,280,57
+366,191,57
+367,394,57
+368,352,57
+369,62,57
+370,114,57
+371,350,57
+372,11,57
+373,152,58
+374,77,58
+375,223,58
+376,178,58
+377,251,58
+378,114,58
+379,264,58
+380,195,58
+381,188,58
+382,270,57
+383,26,63
+384,170,63
+385,218,63
+386,282,63
+387,179,63
+388,321,63
+389,213,63
+390,370,59
+391,358,59
+392,178,59
+393,152,59
+394,223,59
+395,106,59
+396,118,63
+397,180,63
+398,355,63
+399,168,63
+400,85,60
+401,296,60
+402,150,60
+403,232,63
+404,119,63
+405,56,63
+406,269,63
+407,167,63
+408,27,61
+409,76,61
+410,49,63
+411,152,62
+412,191,62
+413,313,62
+414,261,62
+415,195,62
+416,223,62
+417,113,62
+418,178,62
+419,370,62
+420,106,62
+421,391,62
+422,11,62
+423,122,62
+424,93,63
+425,246,64
+426,252,64
+427,57,64
+428,341,64
+429,326,64
+430,333,64
+431,121,63
+432,8,63
+433,227,63
+434,255,63
+435,376,65
+436,354,63
+437,385,63
+438,283,63
+439,100,63
+440,384,63
+441,17,63
+442,124,63
+443,51,66
+444,289,66
+445,324,66
+446,313,66
+447,213,66
+448,326,66
+449,100,66
+450,234,66
+451,391,66
+452,196,66
+453,202,66
+454,277,67
+455,264,66
+456,171,66
+457,239,63
+458,197,68
+459,301,68
+460,153,68
+461,53,68
+462,90,63
+463,109,63
+464,143,63
+465,152,69
+466,95,69
+467,240,69
+468,280,69
+469,134,69
+470,319,69
+471,6,69
+472,114,69
+473,248,63
+474,122,63
+475,110,70
+476,15,70
+477,31,63
+478,396,71
+479,392,63
+480,231,63
+481,48,63
+482,359,72
+483,43,72
+484,366,73
+485,258,72
+486,23,72
+487,363,72
+488,343,72
+489,219,72
+490,68,72
+491,386,72
+492,54,72
+493,236,63
+494,79,74
+495,132,74
+496,190,63
+497,196,75
+498,264,75
+499,336,63
+500,185,63
+501,305,76
+502,126,76
+503,83,63
+504,280,77
+505,328,77
+506,22,63
+507,117,78
+508,51,78
+509,381,78
+510,162,78
+511,313,78
+512,303,78
+513,396,78
+514,218,78
+515,401,78
+516,322,78
+517,148,78
+518,102,2
+519,314,2
+520,194,2
+521,100,78
+522,367,78
+523,124,78
+524,196,3
+525,204,78
+526,391,78
+527,114,78
+528,196,78
+529,12,4
+530,127,4
+531,114,4
+532,202,78
+533,143,78
+534,254,63
+535,140,6
+536,279,6
+537,292,6
+538,32,6
+539,315,6
+540,98,6
+541,44,6
+542,111,6
+543,327,6
+544,128,6
+545,50,6
+546,325,6
+547,67,6
+548,365,6
+549,256,6
+550,273,6
+551,63,6
+552,351,6
+553,346,6
+554,380,6
+555,262,6
+556,383,6
+557,3,63
+558,175,63
+559,91,63
+560,14,63
+561,144,9
+562,72,11
+563,108,11
+564,59,11
+565,276,9
+566,242,13
+567,142,13
+568,169,13
+569,165,63
+570,82,63
+571,7,14
+572,386,14
+573,339,14
+574,243,63
+575,316,63
+576,45,63
+577,344,63
+578,29,63
+579,372,63
+580,28,16
+581,55,16
+582,138,16
+583,382,16
+584,374,16
+585,378,16
+586,308,16
+587,309,16
+588,290,16
+589,52,63
+590,265,63
+591,97,17
+592,29,17
+593,207,17
+594,236,17
+595,66,17
+596,214,17
+597,288,63
+598,88,63
+599,364,63
+600,69,63
+601,353,63
+602,257,63
+603,61,63
+604,230,63
+605,211,63
+606,186,63
+607,380,63
+608,47,6
+609,237,63
+610,389,6
+611,96,26
+612,400,26
+613,101,12

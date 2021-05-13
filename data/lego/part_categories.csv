@@ -1,58 +1,58 @@
 part_cat_id,part_category_name
-1,Baseplates
-2,Bricks Printed
-3,Bricks Sloped
-4,"Duplo, Quatro and Primo"
-5,Bricks Special
-6,Bricks Wedged
-7,Containers
-8,Technic Bricks
-9,Plates Special
-10,Tiles Printed
-11,Bricks
-12,Technic Connectors
-13,Minifigs
-14,Plates
-15,Tiles Special
-16,Windows and Doors
-17,Non-LEGO
-18,"Hinges, Arms and Turntables"
-19,Tiles
-20,Bricks Round and Cones
-21,Plates Round and Dishes
-22,Pneumatics
-23,Panels
-24,Other
-25,"Technic Steering, Suspension and Engine"
-26,Technic Special
-27,Minifig Accessories
-28,Plants and Animals
-29,Wheels and Tyres
-30,Tubes and Hoses
-31,"String, Bands and Reels"
-32,"Bars, Ladders and Fences"
-33,Rock
-34,"Supports, Girders and Cranes"
-35,Transportation - Sea and Air
-36,Transportation - Land
-37,Bricks Curved
-38,"Flags, Signs, Plastics and Cloth"
-39,Magnets and Holders
-40,Technic Panels
-41,"Bionicle, Hero Factory and Constraction"
-42,"Belville, Scala and Fabuland"
-43,Znap
-44,Mechanical
-45,"Power Functions, Mindstorms and Electric"
-46,Technic Axles
-47,Windscreens and Fuselage
-48,Clikits
-49,Plates Angled
-50,HO Scale
-51,Technic Beams
-52,Technic Gears
-53,Technic Pins
-54,Technic Bushes
-55,Technic Beams Special
-56,Tools
-57,"Non-Buildable Figures (Duplo, Fabuland, etc)"
+0,3
+1,4
+2,16
+3,13
+4,31
+5,37
+6,10
+7,27
+8,22
+9,11
+10,29
+11,34
+12,18
+13,28
+14,2
+15,42
+16,20
+17,30
+18,26
+19,21
+20,38
+21,0
+22,44
+23,43
+24,1
+25,9
+26,19
+27,14
+28,15
+29,23
+30,41
+31,52
+32,32
+33,17
+34,45
+35,5
+36,35
+37,8
+38,46
+39,36
+40,25
+41,49
+42,24
+43,6
+44,47
+45,55
+46,50
+47,48
+48,51
+49,12
+50,7
+51,53
+52,54
+53,33
+54,39
+55,56
+56,40

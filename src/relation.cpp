@@ -28,49 +28,49 @@ enum class CSVState {
     QuotedQuote
 };
 
-row readCSVRow(const string &line) {
-    CSVState state = CSVState::UnquotedField;
-    row r;
-    r.value = 1;
-    r.attr.push_back("");
-    size_t i = 0; // index of the current field
-    for (char c : line) {
-        switch (state) {
-            case CSVState::UnquotedField:
-                switch (c) {
-                    case ',': // end of field
-                              r.attr.push_back(""); i++;
-                              break;
-                    case '"': state = CSVState::QuotedField;
-                              break;
-                    default:  r.attr[i].push_back(c);
-                              break; }
-                break;
-            case CSVState::QuotedField:
-                switch (c) {
-                    case '"': state = CSVState::QuotedQuote;
-                              break;
-                    default:  r.attr[i].push_back(c);
-                              break; }
-                break;
-            case CSVState::QuotedQuote:
-                switch (c) {
-                    case ',': // , after closing quote
-                              r.attr.push_back(""); i++;
-                              state = CSVState::UnquotedField;
-                              break;
-                    case '"': // "" -> "
-                              r.attr[i].push_back('"');
-                              state = CSVState::QuotedField;
-                              break;
-                    default:  // end of quote
-                              state = CSVState::UnquotedField;
-                              break; }
-                break;
-        }
-    }
-    return r;
-}
+// row readCSVRow(const string &line) {
+//     CSVState state = CSVState::UnquotedField;
+//     row r;
+//     r.value = 1;
+//     r.attr.push_back("");
+//     size_t i = 0; // index of the current field
+//     for (char c : line) {
+//         switch (state) {
+//             case CSVState::UnquotedField:
+//                 switch (c) {
+//                     case ',': // end of field
+//                               r.attr.push_back(""); i++;
+//                               break;
+//                     case '"': state = CSVState::QuotedField;
+//                               break;
+//                     default:  r.attr[i].push_back(c);
+//                               break; }
+//                 break;
+//             case CSVState::QuotedField:
+//                 switch (c) {
+//                     case '"': state = CSVState::QuotedQuote;
+//                               break;
+//                     default:  r.attr[i].push_back(c);
+//                               break; }
+//                 break;
+//             case CSVState::QuotedQuote:
+//                 switch (c) {
+//                     case ',': // , after closing quote
+//                               r.attr.push_back(""); i++;
+//                               state = CSVState::UnquotedField;
+//                               break;
+//                     case '"': // "" -> "
+//                               r.attr[i].push_back('"');
+//                               state = CSVState::QuotedField;
+//                               break;
+//                     default:  // end of quote
+//                               state = CSVState::UnquotedField;
+//                               break; }
+//                 break;
+//         }
+//     }
+//     return r;
+// }
 
 Relation::Relation(string dir)
 {   
@@ -104,15 +104,30 @@ Relation::Relation(string dir)
         if (line[0] == COMMENT_CHAR || line == "")
                 continue;
         
-        row r = readCSVRow(line);
+        // row r = readCSVRow(line);
+
+
+        ssLine << line;
+        
+        row r;
+        r.value = 1;
+
+        // read each attribute value
+        while(getline(ssLine, temp, PARAMETER_SEPARATOR_CHAR)){
+            r.attr.push_back(stoi(temp));
+            // cout<< stoi(temp) << "\n";
+        }
 
         if (r.attr.size() != schema.size())
         {
             cout<< dir << " Different number of attributes. \n";
+            // cout<< r.attr.size() << "\n";
+            // cout<< schema.size() << "\n";
             exit(1);
         }
         
         relation->push_back(r);
+        ssLine.clear();
     }
 }
 
@@ -155,7 +170,7 @@ void deleteNode(hNode* curNode){
     }
 
     // iterate through the hashmap in the node
-    unordered_map<string,hNode*>::iterator it;
+    unordered_map<int,hNode*>::iterator it;
     for (it = curNode->children.begin(); it != curNode->children.end(); it++)
     {
         deleteNode(it->second);
@@ -189,7 +204,7 @@ void Relation::print()
     }
     cout << "\n";
     for(row r: *relation){
-        for(string s: r.attr){
+        for(int s: r.attr){
             cout << s <<",";
         }
         cout << r.value;

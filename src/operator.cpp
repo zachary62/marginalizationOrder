@@ -29,7 +29,7 @@ Operator::~Operator()
 
 // helper function to marginalize
 // given the node, build the row, and add the row to relation
-void Operator::trieToRelation(vector<row>* relation, vector<string> curRow, hNode* curNode){
+void Operator::trieToRelation(vector<row>* relation, vector<int> curRow, hNode* curNode){
     // base case
     if(curNode->value != 0){
         row r;
@@ -42,12 +42,12 @@ void Operator::trieToRelation(vector<row>* relation, vector<string> curRow, hNod
     }
 
     // iterate through the hashmap in the node
-    unordered_map<string,hNode*>::iterator it;
+    unordered_map<int,hNode*>::iterator it;
     for (it = curNode->children.begin(); it != curNode->children.end(); it++)
     {
         // copy a new vector (as the old one will be used for next value)
-        vector<string> next = curRow;
-        string att = it->first;
+        vector<int> next = curRow;
+        int att = it->first;
         next.push_back(att);
         trieToRelation(relation, next, it->second);
         
@@ -57,7 +57,8 @@ void Operator::trieToRelation(vector<row>* relation, vector<string> curRow, hNod
 
 
 
-
+// first build multi hash, then to relation
+// use generalized project instead
 Relation* Operator::marginalize(Relation* input, unordered_set<string> attrs)
 {
     Relation* output = new Relation();
@@ -94,7 +95,7 @@ Relation* Operator::marginalize(Relation* input, unordered_set<string> attrs)
             }
 
             // if not marginalized, get the current attribute value
-            string cur_attr = r.attr[i];
+            int cur_attr = r.attr[i];
             // cout << cur_attr <<"\n";
 
             // check if previous node has been built
@@ -114,7 +115,7 @@ Relation* Operator::marginalize(Relation* input, unordered_set<string> attrs)
         // cout << "value: " << cur->value <<"\n";
     }
     
-    vector<string> empty;
+    vector<int> empty;
     // build relation from the built multi-level map
     trieToRelation(output->relation, empty, root);
     return output;
@@ -135,7 +136,7 @@ hNode* Operator::buildHashNode(Relation* input, vector<int> idx){
         for(int i: idx){
 
             // get the current attribute value
-            string cur_attr = r.attr[i];
+            int cur_attr = r.attr[i];
 
             // check if previous node has been built
             if(cur->children.find(cur_attr) == cur->children.end()){
@@ -156,6 +157,7 @@ hNode* Operator::buildHashNode(Relation* input, vector<int> idx){
     return root;
 }
 
+// attrs must follow the global order
 Relation* Operator::generializedProject(Relation* input, vector<string> attrs){
 
     Relation* output = new Relation();
@@ -178,7 +180,7 @@ Relation* Operator::generializedProject(Relation* input, vector<string> attrs){
 }
 
 // given the nodes, build the row, and add the row to relation
-void nodesJoinToRelation(vector<row>* output, vector<string> curRow, vector<hNode*> curNodes, vector<int> levels, 
+void nodesJoinToRelation(vector<row>* output, vector<int> curRow, vector<hNode*> curNodes, vector<int> levels, 
                         int curAttId, int maxAttId, vector<string> ordered_attributes, vector<vector<string>> attrs){
 
     // base case
@@ -221,10 +223,10 @@ void nodesJoinToRelation(vector<row>* output, vector<string> curRow, vector<hNod
 
 
     // iterate through all the attribute value in the smallest relation
-    unordered_map<string,hNode*>::iterator it;
+    unordered_map<int,hNode*>::iterator it;
     for (it = node->children.begin(); it != node->children.end(); it++)
     {
-        string attrValue = it->first;
+        int attrValue = it->first;
 
         // for all relations with this attribute, check if they all contain this attribute value
         bool equal = true;
@@ -252,7 +254,7 @@ void nodesJoinToRelation(vector<row>* output, vector<string> curRow, vector<hNod
 
         // otherwise, go to the deeper attribute
         // copy a new vector (as the old one will be used for next value)
-        vector<string> nextRow = curRow;
+        vector<int> nextRow = curRow;
         nextRow.push_back(it->first);
 
         // for relation with this attribute, node goes to next level (update level and nodes)
@@ -317,7 +319,7 @@ Relation* Operator::join(vector<Relation*> relations, vector<string> ordered_att
         levels.push_back(0);
     }
 
-    vector<string> empty;
+    vector<int> empty;
     nodesJoinToRelation(output->relation, empty, nodes, levels, 0, (int)ordered_attributes.size(), ordered_attributes, attrs);
 
     return output;

@@ -8,14 +8,14 @@ using namespace std;
 
 // multi-level hash map
 struct hNode{
-    unordered_map<string,hNode*> children;
+    unordered_map<int,hNode*> children;
     // assume that leaf node has non-zero value
     int value = 0;
 };
 
 struct row
 {
-  vector<string> attr;
+  vector<int> attr;
   // aggregation value
   int value;
 };
