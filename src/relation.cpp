@@ -15,11 +15,15 @@ static const char PARAMETER_SEPARATOR_CHAR = ',';
 
 static const bool VERBOSE = true;
 
+int i = 0;
+
 using namespace std;
 
 Relation::Relation()
 { 
     relation = new vector<row>;
+    id = i++;
+    // cout<<id<<"\n";
 }
 
 enum class CSVState {
@@ -74,6 +78,8 @@ enum class CSVState {
 
 Relation::Relation(string dir)
 {   
+    id = i++;
+    // cout<<id<<"\n";
     ifstream input(dir);
     string line;
     stringstream ssLine;

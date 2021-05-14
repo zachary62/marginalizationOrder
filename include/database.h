@@ -21,11 +21,18 @@ public:
     // get the basic stats and build trie for each relation,
     void Preprocess();
 
+    void computeAllStats();
+    void computeStats(string attribute);
+
+    vector<int> findRelatedRelations(string attribute);
+
     // join and build trie for the join result
     Relation* join(vector<Relation*> relations);
 
     // join and build trie for the join result
     Relation* marginalize(Relation* relation, string attr);
+
+    Relation* project(Relation* relation, vector<string> newAttrs);
 
     ~Database();
 
@@ -34,5 +41,6 @@ public:
 
     vector<Relation*> relations;
     vector<string> nodeOrder;
+    unordered_map<string, Relation*> cached_projection;
 };
 

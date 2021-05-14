@@ -117,26 +117,27 @@ void logo_example(){
     db.Preprocess();
     start = clock();
 
-    db.eliminate("part_category_name");
-    db.eliminate("color_name");
-    db.eliminate("rgb");
-    db.eliminate("is_trans");
-    db.eliminate("theme_name");
-    db.eliminate("parent_id");
-    db.eliminate("set_name");
-    db.eliminate("num_parts");
-    db.eliminate("theme_id");
-    db.eliminate("set_num");
-    db.eliminate("year");
-    db.eliminate("inventory_set_quantity");
-    db.eliminate("part_name");
-    db.eliminate("part_num");
-    db.eliminate("inventory_id");
-    db.eliminate("inventory_part_quantity");
-    db.eliminate("color_id");
-    db.eliminate("part_cat_id");
-    db.eliminate("is_spare");
+    // db.eliminate("part_category_name");
+    // db.eliminate("color_name");
+    // db.eliminate("rgb");
+    // db.eliminate("is_trans");
+    // db.eliminate("theme_name");
+    // db.eliminate("parent_id");
+    // db.eliminate("set_name");
+    // db.eliminate("num_parts");
+    // db.eliminate("theme_id");
+    // db.eliminate("set_num");
+    // db.eliminate("year");
+    // db.eliminate("inventory_set_quantity");
+    // db.eliminate("part_name");
+    // db.eliminate("part_num");
+    // db.eliminate("inventory_id");
+    // db.eliminate("inventory_part_quantity");
+    // db.eliminate("color_id");
+    // db.eliminate("part_cat_id");
+    // db.eliminate("is_spare");
 
+    // order for not insideoutside
     // db.eliminate("part_category_name");
     // db.eliminate("color_name");
     // db.eliminate("rgb");
@@ -159,7 +160,26 @@ void logo_example(){
     // db.eliminate("theme_id");
     // db.eliminate("year");
 
-
+    // order for insideoutside
+    db.eliminate("part_category_name");
+    db.eliminate("color_name");
+    db.eliminate("rgb");
+    db.eliminate("is_trans");
+    db.eliminate("inventory_set_quantity");
+    db.eliminate("set_name");
+    db.eliminate("theme_name");
+    db.eliminate("parent_id");
+    db.eliminate("set_num");
+    db.eliminate("num_parts");
+    db.eliminate("theme_id");
+    db.eliminate("year");    
+    db.eliminate("inventory_id");
+    db.eliminate("part_name");
+    db.eliminate("part_num");
+    db.eliminate("color_id");
+    db.eliminate("part_cat_id");
+    db.eliminate("inventory_part_quantity");
+    db.eliminate("is_spare");
 
     duration = (clock() - start) / (double)CLOCKS_PER_SEC;
     cout << "time to marginalization: " << duration << "\n"; 

@@ -189,9 +189,10 @@ void nodesJoinToRelation(vector<row>* output, vector<int> curRow, vector<hNode*>
         r.attr = curRow;
 
         int value = 1;
-        for(hNode* curNode: curNodes){
-            value = value * curNode->value;
-        }
+        // for now, don't recompute the join size to avoid overflow!!!!
+        // for(hNode* curNode: curNodes){
+        //     value = value * curNode->value;
+        // }
 
         r.value = value;
         output->push_back(r);

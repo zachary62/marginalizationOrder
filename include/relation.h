@@ -44,6 +44,9 @@ public:
     // idx of orderedAttr
     vector<int> idx;
 
+    int id = -1;
+    // unordered_map<string, Relation*> cached_projection;
+  
     
 };
 
